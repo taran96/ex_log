@@ -17,7 +17,7 @@ defmodule ExLog.Logging.Entry do
   @doc false
   def changeset(%Entry{} = entry, attrs) do
     entry
-    |> cast(attrs, [:timestamp, :message, :location])
+    |> cast(attrs, [:timestamp, :message, :location, :service_id, :level_id])
     |> validate_required([:timestamp, :message, :location])
   end
 end
