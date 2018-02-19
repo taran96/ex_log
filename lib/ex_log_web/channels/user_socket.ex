@@ -2,7 +2,7 @@ defmodule ExLogWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", ExLogWeb.RoomChannel
+  channel "service:*", ExLogWeb.ServiceChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
