@@ -34,7 +34,7 @@ defmodule ExLogWeb.EntryControllerTest do
         "id" => id,
         "location" => "some location",
         "message" => "some message",
-        "timestamp" => ~N[2010-04-17 14:00:00.000000]}
+        "timestamp" => "2010-04-17T14:00:00.000000"}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -55,7 +55,7 @@ defmodule ExLogWeb.EntryControllerTest do
         "id" => id,
         "location" => "some updated location",
         "message" => "some updated message",
-        "timestamp" => ~N[2011-05-18 15:01:01.000000]}
+        "timestamp" => "2011-05-18T15:01:01.000000"}
     end
 
     test "renders errors when data is invalid", %{conn: conn, entry: entry} do
