@@ -19,8 +19,7 @@ defmodule ExLogWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ExLogWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ExLogWeb do
+    pipe_through :api
+  end
 end
