@@ -21,5 +21,7 @@ defmodule ExLogWeb.Router do
 
   scope "/api", ExLogWeb do
     pipe_through :api
+    resources "/services", ServiceController
+    resources "/levels", LevelController
   end
 end
