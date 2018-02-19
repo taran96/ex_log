@@ -23,5 +23,6 @@ defmodule ExLogWeb.Router do
     pipe_through :api
     resources "/services", ServiceController
     resources "/levels", LevelController
+    resources "/entries", EntryController
   end
 end

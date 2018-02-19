@@ -124,4 +124,68 @@ defmodule ExLog.LoggingTest do
       assert %Ecto.Changeset{} = Logging.change_level(level)
     end
   end
+
+  describe "entries" do
+    alias ExLog.Logging.Entry
+
+    @valid_attrs %{location: "some location", message: "some message", timestamp: ~N[2010-04-17 14:00:00.000000]}
+    @update_attrs %{location: "some updated location", message: "some updated message", timestamp: ~N[2011-05-18 15:01:01.000000]}
+    @invalid_attrs %{location: nil, message: nil, timestamp: nil}
+
+    def entry_fixture(attrs \\ %{}) do
+      {:ok, entry} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Logging.create_entry()
+
+      entry
+    end
+
+    test "list_entries/0 returns all entries" do
+      entry = entry_fixture()
+      assert Logging.list_entries() == [entry]
+    end
+
+    test "get_entry!/1 returns the entry with given id" do
+      entry = entry_fixture()
+      assert Logging.get_entry!(entry.id) == entry
+    end
+
+    test "create_entry/1 with valid data creates a entry" do
+      assert {:ok, %Entry{} = entry} = Logging.create_entry(@valid_attrs)
+      assert entry.location == "some location"
+      assert entry.message == "some message"
+      assert entry.timestamp == ~N[2010-04-17 14:00:00.000000]
+    end
+
+    test "create_entry/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Logging.create_entry(@invalid_attrs)
+    end
+
+    test "update_entry/2 with valid data updates the entry" do
+      entry = entry_fixture()
+      assert {:ok, entry} = Logging.update_entry(entry, @update_attrs)
+      assert %Entry{} = entry
+      assert entry.location == "some updated location"
+      assert entry.message == "some updated message"
+      assert entry.timestamp == ~N[2011-05-18 15:01:01.000000]
+    end
+
+    test "update_entry/2 with invalid data returns error changeset" do
+      entry = entry_fixture()
+      assert {:error, %Ecto.Changeset{}} = Logging.update_entry(entry, @invalid_attrs)
+      assert entry == Logging.get_entry!(entry.id)
+    end
+
+    test "delete_entry/1 deletes the entry" do
+      entry = entry_fixture()
+      assert {:ok, %Entry{}} = Logging.delete_entry(entry)
+      assert_raise Ecto.NoResultsError, fn -> Logging.get_entry!(entry.id) end
+    end
+
+    test "change_entry/1 returns a entry changeset" do
+      entry = entry_fixture()
+      assert %Ecto.Changeset{} = Logging.change_entry(entry)
+    end
+  end
 end
