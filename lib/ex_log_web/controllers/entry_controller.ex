@@ -13,6 +13,7 @@ defmodule ExLogWeb.EntryController do
 
   def create(conn, %{"entry" => entry_params}) do
     with {:ok, %Entry{} = entry} <- Logging.create_entry(entry_params) do
+      ExLogWeb.ServiceChannel.broadcast_create(entry)
       conn
       |> put_status(:created)
       |> put_resp_header("location", entry_path(conn, :show, entry))

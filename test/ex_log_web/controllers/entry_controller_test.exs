@@ -41,6 +41,16 @@ defmodule ExLogWeb.EntryControllerTest do
       conn = post conn, entry_path(conn, :create), entry: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
+
+    test "sends a broadcast on the service channel", %{conn: conn} do
+      {:ok, service} = ExLog.Logging.create_service(%{name: "some name"})
+      ExLogWeb.Endpoint.subscribe("service:#{service.id}")
+      attrs = Map.put(@create_attrs, :service_id, service.id)
+      conn = post conn, entry_path(conn, :create), entry: attrs
+      assert json_response(conn, 201)
+      assert_receive %Phoenix.Socket.Broadcast{event: "entry", payload: ^attrs}
+      ExLogWeb.Endpoint.unsubscribe("service:#{service.id}")
+    end
   end
 
   describe "update entry" do
