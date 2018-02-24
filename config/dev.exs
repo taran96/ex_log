@@ -55,3 +55,12 @@ config :ex_log, ExLog.Repo,
   database: "ex_log_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Configure your database
+config :ex_log, ExLog.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "ex_log_dev",
+  hostname: "localhost",
+  pool_size: 10

@@ -17,3 +17,12 @@ config :ex_log, ExLog.Repo,
   database: "ex_log_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Configure your database
+config :ex_log, ExLog.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "ex_log_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox

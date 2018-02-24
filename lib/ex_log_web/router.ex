@@ -1,5 +1,6 @@
 defmodule ExLogWeb.Router do
   use ExLogWeb, :router
+  use ExAdmin.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -17,6 +18,11 @@ defmodule ExLogWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+  end
+
+  scope "/admin", ExAdmin do
+    pipe_through :browser
+    admin_routes()
   end
 
   scope "/api", ExLogWeb do

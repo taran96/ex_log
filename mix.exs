@@ -39,8 +39,9 @@ defmodule ExLog.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:gettext, "0.13.1"},  # Fixed to 0.13.1 for ex_admin, originally it was `~> 0.11`
+      {:cowboy, "~> 1.0"},
+      {:ex_admin, github: "smpallen99/ex_admin", branch: "phx-1.3"},
     ]
   end
 
