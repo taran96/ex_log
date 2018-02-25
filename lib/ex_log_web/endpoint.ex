@@ -38,6 +38,7 @@ defmodule ExLogWeb.Endpoint do
     key: "_ex_log_key",
     signing_salt: "DxJkGpzg"
 
+  plug CORSPlug
   plug ExLogWeb.Router
 
   @doc """
