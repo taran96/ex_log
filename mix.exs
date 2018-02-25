@@ -42,6 +42,7 @@ defmodule ExLog.Mixfile do
       {:gettext, "0.13.1"},  # Fixed to 0.13.1 for ex_admin, originally it was `~> 0.11`
       {:cowboy, "~> 1.0"},
       {:ex_admin, github: "smpallen99/ex_admin", branch: "phx-1.3"},
+      {:cors_plug, "~> 1.4.0"},
     ]
   end
 
