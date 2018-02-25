@@ -293,4 +293,22 @@ defmodule ExLog.Logging do
   def change_entry(%Entry{} = entry) do
     Entry.changeset(entry, %{})
   end
+
+
+  @doc """
+  Filters the entries based on given parameters
+  """
+  def filter_entries(_requested_filters, filters) when filters == %{} do
+    list_entries()
+  end
+
+  def filter_entries(requested_filters, filters) do
+    filter_list =
+      Ecto.Changeset.cast(%Entry{}, filters, requested_filters)
+      |> Map.fetch!(:changes)
+      |> Map.to_list
+    Entry
+    |> where(^filter_list)
+    |> Repo.all
+  end
 end
