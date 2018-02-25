@@ -6,8 +6,11 @@ defmodule ExLogWeb.EntryController do
 
   action_fallback ExLogWeb.FallbackController
 
+  @requested_filters ["service_id", "level_id"]
+  plug ExLogWeb.Plugs.Filter, @requested_filters when action in [:index]
+
   def index(conn, _params) do
-    entries = Logging.list_entries()
+    entries = Logging.filter_entries(@requested_filters, conn.assigns.filters)
     render(conn, "index.json", entries: entries)
   end
 
