@@ -22,7 +22,8 @@ defmodule ExLogWeb.ServiceChannel do
       location: entry.location,
       message: entry.message,
       service_id: entry.service_id,
-      timestamp: entry.timestamp
+      timestamp: entry.timestamp,
+      level_id: entry.level_id,
     }
     ExLogWeb.Endpoint.broadcast!("service:#{entry.service_id}", "entry", payload)
   end
